@@ -2,7 +2,7 @@
 
 `|Your File| --> |Crypter| --> |Encrpyte File|+|Stub|`
 
-the stub is the section of the code that will provide the extraction and sometime the eecution of the progrma
+the stub is the section of the code that will provide the extraction and sometime the execution of the program
 ## Scantime Packers
 These types of packers are known as scantime due to their capability of obscuring data on disk which is where antivirus software can run a scan on the file with signature-based detection, for example. In this stage, the antivirus software will never be able to detect any malicious activity provided that the applied obfuscation is robust
 ## Runtime Packers
