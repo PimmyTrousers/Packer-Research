@@ -42,5 +42,11 @@ These packers will deobfuscate the data as it is needed rather than in whole com
 9. Finish
 ```
 
+## Instructions for unix packer
+1. Compile both the hello.c and unixpacker.c with `gcc hello.c -o hello` and `gcc unixpacker.c -o unixpacker` 
+2. Encrypt the hello binary with `./unixpacker hello`
+3. You should now have a crypto.bin file which contains the encrypted contents
+4. To run the encrypted program enter `./unixpacker`
+
 
 
