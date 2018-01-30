@@ -6,46 +6,57 @@
 char* stub_crypt(FILE* hFile, int dwFileSize);
 
 char CRYPTED_FILE[15] = "crypto.bin";
-char Key[9] = "cryptocry";
+char Key[9];
 
 int main(int argc, char* argv[])
 {
- if(argc < 2){
-     // get crypted file name in current directory
-     char cwd[1024];
-     getcwd(cwd, sizeof(cwd));
-     strcat(cwd, "/");
-     strcat(cwd, CRYPTED_FILE);
-     printf("%s\n", cwd);
-     // open handle to new decrypted file
-     FILE *hCryptedFile = fopen(cwd, "ab+");
-     if (hCryptedFile == NULL)
-     {
-         fputs("Opening the file failed", stderr);
-         exit(1);
-     }
+    Key[0] = 99;
+    Key[1] = 114;
+    Key[2] = 121;
+    Key[3] = 112;
+    Key[4] = 116;
+    Key[5] = 111;
+    Key[6] = 99;
+    Key[7] = 114;
+    Key[8] = 121;
 
-     // get file size, remove the file and close the handle
-     fseek(hCryptedFile, 0, SEEK_END);
-     int size = ftell(hCryptedFile);
-     printf("The size is 0x%x\n", size);
-     fseek(hCryptedFile, 0, SEEK_SET);
+    if (argc < 2)
+    {
+        // get crypted file name in current directory
+        char cwd[1024];
+        getcwd(cwd, sizeof(cwd));
+        strcat(cwd, "/");
+        strcat(cwd, CRYPTED_FILE);
+        printf("%s\n", cwd);
+        // open handle to new decrypted file
+        FILE *hCryptedFile = fopen(cwd, "ab+");
+        if (hCryptedFile == NULL)
+        {
+            fputs("Opening the file failed", stderr);
+            exit(1);
+        }
 
-     char *lpFileBytes = stub_crypt(hCryptedFile, size);
+        // get file size, remove the file and close the handle
+        fseek(hCryptedFile, 0, SEEK_END);
+        int size = ftell(hCryptedFile);
+        printf("The size is 0x%x\n", size);
+        fseek(hCryptedFile, 0, SEEK_SET);
 
-     fclose(hCryptedFile);
-     hCryptedFile = fopen(cwd, "wb");
-     // Create the file
-     if (hCryptedFile == NULL)
-     {
-         fputs("Opening the file failed", stderr);
-         exit(1);
-     }
+        char *lpFileBytes = stub_crypt(hCryptedFile, size);
 
-     // write result to file 
-     int result = fwrite(lpFileBytes, size, 1, hCryptedFile);
-     fclose(hCryptedFile);
-     free(lpFileBytes);
+        fclose(hCryptedFile);
+        hCryptedFile = fopen(cwd, "wb");
+        // Create the file
+        if (hCryptedFile == NULL)
+        {
+            fputs("Opening the file failed", stderr);
+            exit(1);
+        }
+
+        // write result to file
+        int result = fwrite(lpFileBytes, size, 1, hCryptedFile);
+        fclose(hCryptedFile);
+        free(lpFileBytes);
 
  }else{
    // crypter routine
@@ -72,7 +83,7 @@ int main(int argc, char* argv[])
        strcat(cwd, CRYPTED_FILE);
        printf("%s", cwd);
        // open handle to new crypted file
-       FILE* hCryptedFile = fopen(cwd, "ab+");
+       FILE* hCryptedFile = fopen(cwd, "wb");
       //  write to crypted file
       int result = fwrite(lpFileBytes, size, 1, hCryptedFile);
       fclose(hCryptedFile);
